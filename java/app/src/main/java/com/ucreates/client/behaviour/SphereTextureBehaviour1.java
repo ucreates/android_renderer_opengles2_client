@@ -13,8 +13,10 @@ import com.frontend.behaviour.BaseBehaviour;
 import com.ucreates.renderer.asset.GLES2BaseAsset;
 import com.ucreates.renderer.asset.mesh.GLES2CubeAsset1;
 import com.ucreates.renderer.asset.mesh.GLES2SphereAsset1;
+import com.ucreates.renderer.asset.mesh.GLES2SphereAsset2;
 import com.ucreates.renderer.entity.GLES2Color;
 import com.ucreates.renderer.shader.GLES2ProgramObject;
+import java.util.Random;
 public class SphereTextureBehaviour1 extends BaseBehaviour {
     private float rotate;
     public GLES2BaseAsset asset;
@@ -36,7 +38,13 @@ public class SphereTextureBehaviour1 extends BaseBehaviour {
         programObject.setNormalName("a_normal");
         programObject.setUVName("a_uv");
         programObject.link();
-        this.asset = new GLES2SphereAsset1(0.5f, 100, GLES2Color.white);
+        Random rnd = new Random();
+        int primitiveType = rnd.nextInt(2);
+        if (0 == primitiveType) {
+            this.asset = new GLES2SphereAsset1(0.5f, 100, GLES2Color.white);
+        } else {
+            this.asset = new GLES2SphereAsset2(0.5f, 100, GLES2Color.white);
+        }
         this.asset.setProgramObject(programObject);
         this.asset.setBindCallback(cb);
         this.asset.create("texture01.jpg", "u_texture", context);

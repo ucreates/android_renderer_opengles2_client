@@ -13,10 +13,10 @@ import com.frontend.behaviour.BaseBehaviour;
 import com.ucreates.renderer.asset.GLES2BaseAsset;
 import com.ucreates.renderer.asset.GLES2BaseAsset.BindCallback;
 import com.ucreates.renderer.asset.mesh.GLES2CircleAsset1;
-import com.ucreates.renderer.asset.polygon.GLES2RectangleAsset1;
+import com.ucreates.renderer.asset.mesh.GLES2CircleAsset2;
 import com.ucreates.renderer.entity.GLES2Color;
 import com.ucreates.renderer.shader.GLES2ProgramObject;
-import com.ucreates.renderer.shader.GLES2Shader;
+import java.util.Random;
 public class CircleBehaviour1 extends BaseBehaviour {
     public GLES2BaseAsset asset;
     public CircleBehaviour1(Context context) {
@@ -35,7 +35,13 @@ public class CircleBehaviour1 extends BaseBehaviour {
         programObject.setPositionName("a_position");
         programObject.setColorName("a_color");
         programObject.link();
-        this.asset = new GLES2CircleAsset1(0.5f, 100, GLES2Color.white);
+        Random rnd = new Random();
+        int primitiveType = rnd.nextInt(2);
+        if (0 == primitiveType) {
+            this.asset = new GLES2CircleAsset1(0.5f, 100, GLES2Color.white);
+        } else {
+            this.asset = new GLES2CircleAsset2(0.5f, 100, GLES2Color.white);
+        }
         this.asset.setProgramObject(programObject);
         this.asset.setBindCallback(cb);
         this.asset.create();

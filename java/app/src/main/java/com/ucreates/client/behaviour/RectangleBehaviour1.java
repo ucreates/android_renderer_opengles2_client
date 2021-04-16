@@ -12,9 +12,10 @@ import android.content.Context;
 import com.frontend.behaviour.BaseBehaviour;
 import com.ucreates.renderer.asset.GLES2BaseAsset;
 import com.ucreates.renderer.asset.polygon.GLES2RectangleAsset1;
-import com.ucreates.renderer.asset.polygon.GLES2TriangleAsset1;
+import com.ucreates.renderer.asset.polygon.GLES2RectangleAsset2;
 import com.ucreates.renderer.entity.GLES2Color;
 import com.ucreates.renderer.shader.GLES2ProgramObject;
+import java.util.Random;
 public class RectangleBehaviour1 extends BaseBehaviour {
     public GLES2BaseAsset asset;
     public RectangleBehaviour1(Context context) {
@@ -33,7 +34,13 @@ public class RectangleBehaviour1 extends BaseBehaviour {
         programObject.setPositionName("a_position");
         programObject.setColorName("a_color");
         programObject.link();
-        this.asset = new GLES2RectangleAsset1(1, 1, GLES2Color.white);
+        Random rnd = new Random();
+        int primitiveType = rnd.nextInt(2);
+        if (0 == primitiveType) {
+            this.asset = new GLES2RectangleAsset1(1, 1, GLES2Color.white);
+        } else {
+            this.asset = new GLES2RectangleAsset2(1, 1, GLES2Color.white);
+        }
         this.asset.setProgramObject(programObject);
         this.asset.setBindCallback(cb);
         this.asset.create();
